@@ -126,6 +126,7 @@
                     'linkTooltip': '@?',
                     'imageTooltip': '@?',
                     'theme': '@?',
+                    'modules': '@?',
                     'save': '@?',
                     'translations': '=?',
                     'required': '@?editorRequired',
@@ -166,6 +167,12 @@
                             }
                         };
 
+                    ($scope.modules || '').split(',').forEach(function(module) {
+                        module = module.trim();
+                        if (module) {
+                            config.modules[module] = {};
+                        }
+                    });
                     // set required flag (if text editor is required)
                     if ($scope.required && $scope.required === 'true') {
                         $scope.required = true;
@@ -200,15 +207,7 @@
 
                     // add tooltip modules
                     if ($scope.linkTooltip && $scope.linkTooltip === 'true') {
-                        config.modules['link-tooltip'] = {
-                            template: '<span class="title">' + $scope.dict.visitURL + ':&nbsp;</span>'
-                                        + '<a href="#" class="url" target="_blank" href="about:blank"></a>'
-                                        + '<input class="input" type="text">'
-                                        + '<span>&nbsp;&#45;&nbsp;</span>'
-                                        + '<a href="javascript:;" class="change">' + $scope.dict.change + '</a>'
-                                        + '<a href="javascript:;" class="remove">' + $scope.dict.remove + '</a>'
-                                        + '<a href="javascript:;" class="done">' + $scope.dict.done + '</a>'
-                        };
+                        config.modules['link-tooltip'] = {};
                     }
                     if ($scope.imageTooltip && $scope.imageTooltip === 'true') {
                         config.modules['image-tooltip'] = {
